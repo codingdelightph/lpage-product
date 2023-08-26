@@ -6,7 +6,8 @@
     <style>
         body {
             background-image: url('https://source.unsplash.com/featured/?beach,sea');
-            background-size: cover;
+            background-size: contain;
+
             background-repeat: no-repeat;
             background-position: center center;
             color: white;
@@ -15,8 +16,18 @@
         }
 
         .container {
-            padding: 50px;
+            width: 100%;
+            max-width: 600px; /* Adjust this value as needed for your desired maximum width */
+            margin: 0 auto;
+            padding: 20px;
         }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+        }
+
 
         h1 {
             font-size: 36px;
@@ -37,13 +48,13 @@
         }
 
         button {
-            padding: 12px 24px;
+            padding: 8px 16px;
             background-color: #337ab7;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 12px;
             transition: background-color 0.3s ease;
             text-transform: uppercase; /* Convert text to uppercase for a more professional look */
             font-weight: bold; /* Add bold font weight */
@@ -59,34 +70,40 @@
             background-color: #333;
             color: #fff;
         }
+
+        #funny-name {
+            width: 150px;
+        }
+
+
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Work-Life Balance Survey</h1>
+    <h2>Work-Life Balance Survey</h2>
     <form id="survey-form">
 
         <label>
             What is your name? Not your real name
             <div style="height: 5px;"></div> <!-- Add empty div for vertical space -->
             <input type="text" name="name" id="funny-name">
-            <br>
+            <button onclick="generateName()">Another name?</button>
         </label>
         <div>
-            <button onclick="generateName()">Let me try another name</button>
+
         </div>
-        <div style="height: 10px;"></div> <!-- Add empty div for vertical space -->
+        <div style="height: 5px;"></div> <!-- Add empty div for vertical space -->
 
         <label>
             <div style="height: 10px;"></div> <!-- Add empty div for vertical space -->
-            What is your biggest pain points at work?<br>
-            <textarea rows="4" cols="50" name="pain-points"></textarea>
+            If there is one thing I can change at work.<br>It would be?<br>
+            <textarea rows="5" cols="40" name="pain-points"></textarea>
         </label>
         <br>
         <div style="height: 10px;"></div> <!-- Add empty div for vertical space -->
         <br>
         <label>
-            Where would you rather be right now if you could finish your work sooner?
+            Where would you rather be right now<br> if you could finish your work sooner?
         </label>
         <div style="height: 5px;"></div> <!-- Add empty div for vertical space -->
         <br>
@@ -96,28 +113,27 @@
                     <td>
                         <input type="radio" name="location" value="beach"> Beach
                     </td>
-                </tr>
                     <td>
                         <input type="radio" name="location" value="family"> Family
                     </td>
-                </tr>
-                <tr>
                     <td>
                         <input type="radio" name="location" value="movies"> Movie
                     </td>
-                    </tr>
                     <td>
                         <input type="radio" name="location" value="coffee"> Coffee
                     </td>
                 </tr>
+
+
             </table>
         </div>
 
         <div style="height: 5px;"></div> <!-- Add empty div for vertical space -->
 
         <div class="button" style="text-align: center;">
-            <input type="submit" value="Submit">
+            <button type="submit" value="Submit" onclick="onsubmit()">Submit</button>
         </div>
+
     </form>
     <div style="height: 20px;"></div> <!-- Add empty div for vertical space -->
     <div id="result-image">
@@ -133,6 +149,8 @@
     });
 
 
+
+
     document.getElementById("survey-form").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent form submission
 
@@ -141,11 +159,16 @@
         var resultImage = document.createElement("img");
         resultImage.src = determineImage(location);
         resultImage.alt = "Result Image";
+        resultImage.style.maxWidth = "100%"; // Set the maximum width of the image to 100%
+        resultImage.style.maxHeight = "100%"; // Set the maximum height of the image to 100%
+        resultImage.style.objectFit = "contain"; // Make the image contain within its container
 
         var resultImageContainer = document.getElementById("result-image");
         resultImageContainer.innerHTML = ""; // Clear the container before adding the image
         resultImageContainer.appendChild(resultImage);
     });
+
+
 
     function determineImage(location) {
         switch (location) {
@@ -203,4 +226,8 @@
 </script>
 
 </body>
+<footer>
+    <p>Images powered by <a href="https://unsplash.com">Unsplash</a></p>
+</footer>
+
 </html>
